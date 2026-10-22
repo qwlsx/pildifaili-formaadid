@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="et">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Viie pildiformaadi failisuuruse ja omaduste võrdlus ühe 1024 × 1024 kujunduse põhjal."
+    />
+    <title>Pildifaili formaadid — Ruslan Rebo</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070b16;
+        --surface: #0d1425;
+        --surface-raised: #111b31;
+        --line: rgba(180, 203, 255, 0.14);
+        --text: #f7f9ff;
+        --muted: #aebbd3;
+        --cyan: #67e8f9;
+        --violet: #c084fc;
+        --lime: #bef264;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 12% 8%, rgba(103, 232, 249, 0.12), transparent 28rem),
+          radial-gradient(circle at 88% 28%, rgba(192, 132, 252, 0.1), transparent 30rem),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand,
+      .author {
+        font-size: 0.75rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .brand {
+        color: var(--cyan);
+      }
+
+      .author {
+        color: var(--muted);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+        gap: clamp(40px, 7vw, 96px);
+        align-items: center;
+        padding: clamp(64px, 9vw, 118px) 0 72px;
+      }
+
+      .eyebrow,
+      .section-index {
+        margin: 0 0 18px;
+        color: var(--cyan);
+        font-size: 0.75rem;
+        font-weight: 760;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 24px;
+        font-size: clamp(3rem, 7vw, 6.6rem);
+        font-weight: 690;
+        letter-spacing: -0.065em;
+        line-height: 0.93;
+      }
+
+      h1 em {
+        color: transparent;
+        font-style: normal;
+        -webkit-text-stroke: 1px var(--violet);
+      }
+
+      .lead {
+        max-width: 650px;
+        margin-bottom: 32px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.22rem);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .chips li {
+        padding: 9px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.025);
+        color: #d8e2f5;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .hero-art {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 380px;
+      }
+
+      .hero-art::before {
+        position: absolute;
+        width: 82%;
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .hero-art::after {
+        position: absolute;
+        width: 104%;
+        aspect-ratio: 1;
+        border: 1px dashed rgba(103, 232, 249, 0.15);
+        border-radius: 50%;
+        content: "";
+        animation: orbit 24s linear infinite;
+      }
+
+      .hero-art img {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 420px);
+        filter: drop-shadow(0 28px 52px rgba(29, 40, 91, 0.45));
+      }
+
+      @keyframes orbit {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 96px;
+        border-block: 1px solid var(--line);
+      }
+
+      .summary-item {
+        padding: 28px 24px;
+      }
+
+      .summary-item + .summary-item {
+        border-left: 1px solid var(--line);
+      }
+
+      .summary strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--lime);
+        font-size: clamp(1.7rem, 3vw, 2.5rem);
+        letter-spacing: -0.045em;
+      }
+
+      .summary span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 34px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+        font-weight: 650;
+        letter-spacing: -0.055em;
+        line-height: 1;
+      }
+
+      .section-note {
+        max-width: 390px;
+        margin-bottom: 3px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        padding-bottom: 96px;
+      }
+
+      .card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: linear-gradient(145deg, rgba(17, 27, 49, 0.96), rgba(10, 16, 31, 0.96));
+      }
+
+      .card:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .preview {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 340px;
+        padding: 34px;
+        overflow: hidden;
+        border-bottom: 1px solid var(--line);
+        background-color: #0b1020;
+        background-image:
+          linear-gradient(45deg, rgba(255, 255, 255, 0.055) 25%, transparent 25%),
+          linear-gradient(-45deg, rgba(255, 255, 255, 0.055) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.055) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.055) 75%);
+        background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+        background-size: 32px 32px;
+      }
+
+      .opaque .preview {
+        background: #0b1020;
+      }
+
+      .preview img {
+        width: min(100%, 285px);
+        height: auto;
+        transition: transform 220ms ease;
+      }
+
+      .card:hover .preview img {
+        transform: scale(1.035);
+      }
+
+      .rank {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: rgba(7, 11, 22, 0.75);
+        font-size: 0.76rem;
+        font-weight: 800;
+        backdrop-filter: blur(10px);
+      }
+
+      .card-body {
+        padding: 25px 26px 28px;
+      }
+
+      .card-topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+
+      .format {
+        color: var(--cyan);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .badge {
+        padding: 5px 9px;
+        border: 1px solid rgba(190, 242, 100, 0.25);
+        border-radius: 999px;
+        color: var(--lime);
+        font-size: 0.68rem;
+        font-weight: 750;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-size: clamp(1.45rem, 2.4vw, 2rem);
+        letter-spacing: -0.035em;
+      }
+
+      .description {
+        min-height: 48px;
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .file-data {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        padding-top: 19px;
+        border-top: 1px solid var(--line);
+      }
+
+      .file-data span {
+        color: var(--muted);
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .file-data strong {
+        font-size: 1.42rem;
+        letter-spacing: -0.035em;
+      }
+
+      .file-data code {
+        color: #cbd7ec;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.75rem;
+      }
+
+      .method {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: clamp(34px, 6vw, 78px);
+        padding: 78px clamp(24px, 5vw, 64px);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: var(--surface);
+      }
+
+      .method h2 {
+        font-size: clamp(2rem, 4vw, 3.6rem);
+      }
+
+      .method-list {
+        display: grid;
+        gap: 22px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        counter-reset: steps;
+      }
+
+      .method-list li {
+        position: relative;
+        padding-left: 54px;
+        color: var(--muted);
+        counter-increment: steps;
+      }
+
+      .method-list li::before {
+        position: absolute;
+        top: -4px;
+        left: 0;
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(103, 232, 249, 0.32);
+        border-radius: 50%;
+        color: var(--cyan);
+        content: "0" counter(steps);
+        font-size: 0.68rem;
+        font-weight: 800;
+      }
+
+      .method-list strong {
+        color: var(--text);
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 28px 0 96px;
+      }
+
+      .links a {
+        min-height: 44px;
+        padding: 11px 15px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: #dbeafe;
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+
+      .links a:hover,
+      .links a:focus-visible {
+        border-color: var(--cyan);
+        outline: none;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          width: min(100% - 26px, 1180px);
+        }
+
+        .hero,
+        .method {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-art {
+          min-height: 310px;
+        }
+
+        .summary {
+          grid-template-columns: 1fr;
+        }
+
+        .summary-item + .summary-item {
+          border-top: 1px solid var(--line);
+          border-left: 0;
+        }
+
+        .section-heading {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .card:first-child {
+          grid-column: auto;
+        }
+
+        .preview {
+          min-height: 300px;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page site-header">
+      <div class="brand">Pildi labor</div>
+      <div class="author">Ruslan Rebo · 2026</div>
+    </header>
+
+    <main class="page">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Pildiformaadid · failisuuruse võrdlus</p>
+          <h1 id="page-title">Üks pilt.<br /><em>Viis formaati.</em></h1>
+          <p class="lead">
+            Sama enda loodud naerunägu on eksporditud viies formaadis ilma mõõtmeid
+            vähendamata. Kõik rasterfailid on 1024 × 1024 px ning kaardid on järjestatud
+            tegeliku failisuuruse järgi.
+          </p>
+          <ul class="chips" aria-label="Töö põhiandmed">
+            <li>5 formaati</li>
+            <li>1024 × 1024 px</li>
+            <li>1 KB = 1024 B</li>
+          </ul>
+        </div>
+        <div class="hero-art">
+          <img src="pilt.svg" alt="Ruslan Rebo loodud sinakas-lilla digitaalne naerunägu" />
+        </div>
+      </section>
+
+      <section class="summary" aria-label="Tulemuste kokkuvõte">
+        <div class="summary-item">
+          <strong>3,02 KB</strong>
+          <span>väikseim fail — SVG</span>
+        </div>
+        <div class="summary-item">
+          <strong>266,03 KB</strong>
+          <span>suurim fail — JPG</span>
+        </div>
+        <div class="summary-item">
+          <strong>5/5</strong>
+          <span>formaati eksporditud</span>
+        </div>
+      </section>
+
+      <section aria-labelledby="comparison-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-index">01 — Võrdlus</p>
+            <h2 id="comparison-title">Väiksemast suuremani</h2>
+          </div>
+          <p class="section-note">
+            Failisuurused on mõõdetud baitides ja teisendatud kilobaitideks jagades
+            tulemuse arvuga 1024.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <figure class="preview">
+              <span class="rank" aria-label="Esimene koht">01</span>
+              <img src="pilt.svg" alt="Naerunäo SVG versioon" />
+            </figure>
+            <div class="card-body">
+              <div class="card-topline">
+                <span class="format">SVG · vektor</span>
+                <span class="badge">läbipaistev</span>
+              </div>
+              <h3>Skaleeritav vektorgraafika</h3>
+              <p class="description">
+                Kujund koosneb matemaatilistest joontest ja kujunditest, mistõttu jääb see
+                teravaks igas suuruses. Selle illustratsiooni puhul on SVG ülekaalukalt väikseim.
+              </p>
+              <div class="file-data">
+                <div><span>Faili suurus</span><br /><strong>3,02 KB</strong></div>
+                <code>3 088 B</code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure class="preview">
+              <span class="rank" aria-label="Teine koht">02</span>
+              <img src="pilt.webp" alt="Naerunäo WebP versioon" />
+            </figure>
+            <div class="card-body">
+              <div class="card-topline">
+                <span class="format">WebP · raster</span>
+                <span class="badge">lossless</span>
+              </div>
+              <h3>Kaasaegne WebP</h3>
+              <p class="description">
+                WebP on salvestatud kadudeta ja täieliku alfakanaliga. See säilitab läbipaistvuse,
+                kuid võtab märgatavalt vähem ruumi kui sama kujunduse PNG.
+              </p>
+              <div class="file-data">
+                <div><span>Faili suurus</span><br /><strong>100,28 KB</strong></div>
+                <code>102 688 B</code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card opaque">
+            <figure class="preview">
+              <span class="rank" aria-label="Kolmas koht">03</span>
+              <img src="pilt-mitte.png" alt="Naerunäo läbipaistmatu PNG versioon" />
+            </figure>
+            <div class="card-body">
+              <div class="card-topline">
+                <span class="format">PNG · raster</span>
+                <span class="badge">ilma alfata</span>
+              </div>
+              <h3>PNG ilma läbipaistvuseta</h3>
+              <p class="description">
+                Tume taust on pildi sisse salvestatud ja kompressioon on kadudeta. Fail on väiksem
+                kui läbipaistev PNG, sest eraldi alfakanalit pole vaja säilitada.
+              </p>
+              <div class="file-data">
+                <div><span>Faili suurus</span><br /><strong>170,69 KB</strong></div>
+                <code>174 783 B</code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure class="preview">
+              <span class="rank" aria-label="Neljas koht">04</span>
+              <img src="pilt-labi.png" alt="Naerunäo läbipaistev PNG versioon" />
+            </figure>
+            <div class="card-body">
+              <div class="card-topline">
+                <span class="format">PNG · raster</span>
+                <span class="badge">läbipaistev</span>
+              </div>
+              <h3>Läbipaistev PNG</h3>
+              <p class="description">
+                Kadudeta PNG säilitab kõik pikslid ja täieliku alfakanali. Malelaua-taust näitab,
+                et naerunäo ümbrus on päriselt läbipaistev.
+              </p>
+              <div class="file-data">
+                <div><span>Faili suurus</span><br /><strong>185,32 KB</strong></div>
+                <code>189 763 B</code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card opaque">
+            <figure class="preview">
+              <span class="rank" aria-label="Viies koht">05</span>
+              <img src="pilt.jpg" alt="Naerunäo JPG versioon" />
+            </figure>
+            <div class="card-body">
+              <div class="card-topline">
+                <span class="format">JPG · raster</span>
+                <span class="badge">kvaliteet 100</span>
+              </div>
+              <h3>Maksimaalse kvaliteediga JPG</h3>
+              <p class="description">
+                JPG ei toeta läbipaistvust, seega on taust pildi sisse salvestatud. Ekspordil
+                kasutati kvaliteeti 100 ja 4:4:4 värvivalimit, mistõttu on fail selles võrdluses suurim.
+              </p>
+              <div class="file-data">
+                <div><span>Faili suurus</span><br /><strong>266,03 KB</strong></div>
+                <code>272 417 B</code>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="method" aria-labelledby="method-title">
+        <div>
+          <p class="section-index">02 — Meetod</p>
+          <h2 id="method-title">Kvaliteet jäi alles</h2>
+        </div>
+        <ol class="method-list">
+          <li>
+            <strong>Üks algkujund.</strong> Kõik failid põhinevad samal enda loodud SVG-naerunäol.
+          </li>
+          <li>
+            <strong>Sama mõõt.</strong> Rasterversioonid eksporditi suuruses 1024 × 1024 px;
+            pilte ei vähendatud.
+          </li>
+          <li>
+            <strong>Maksimaalne kvaliteet.</strong> PNG ja WebP on kadudeta, JPG kasutab kvaliteeti
+            100 ning 4:4:4 värvivalimit.
+          </li>
+          <li>
+            <strong>Täpne arvutus.</strong> Faili baitide arv jagati 1024-ga ja tulemus ümardati
+            kahe komakohani.
+          </li>
+        </ol>
+      </section>
+
+      <nav class="links" aria-label="Kasulikud viited">
+        <a href="https://help.figma.com/hc/en-us/articles/360040450314-Exporting-assets" target="_blank" rel="noreferrer">Figma ekspordi juhend ↗</a>
+        <a href="https://www.figma.com/community/plugin/1181873200384736932/webp-exporter" target="_blank" rel="noreferrer">WebP Exporter ↗</a>
+        <a href="https://www.adobe.com/creativecloud/file-types/image/raster/webp-file.html" target="_blank" rel="noreferrer">WebP formaadist ↗</a>
+      </nav>
+    </main>
+
+    <footer class="page">
+      <span>Pildifaili formaadid ja suuruse optimeerimine</span>
+      <span>Koostaja: Ruslan Rebo</span>
+    </footer>
+  </body>
+</html>

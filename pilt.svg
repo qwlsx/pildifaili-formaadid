@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title description">
+  <title id="title">Digitaalne naerunägu</title>
+  <desc id="description">Ruslan Rebo loodud futuristlik sinakas-lilla naerunägu.</desc>
+  <defs>
+    <linearGradient id="face" x1="190" y1="150" x2="850" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#67e8f9"/>
+      <stop offset="0.48" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(356 294) rotate(51) scale(560)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity=".48"/>
+      <stop offset=".55" stop-color="#ffffff" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#172554" stop-opacity=".2"/>
+    </radialGradient>
+    <linearGradient id="smile" x1="324" y1="628" x2="714" y2="718" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ecfeff"/>
+      <stop offset="1" stop-color="#f5d0fe"/>
+    </linearGradient>
+    <filter id="shadow" x="80" y="90" width="864" height="864" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="34" stdDeviation="38" flood-color="#0f172a" flood-opacity=".28"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <circle cx="512" cy="486" r="362" fill="url(#face)"/>
+    <circle cx="512" cy="486" r="342" fill="url(#glow)" stroke="#ffffff" stroke-opacity=".36" stroke-width="4"/>
+  </g>
+
+  <path d="M283 365v-46c0-34 27-61 61-61h48" fill="none" stroke="#ecfeff" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="283" cy="389" r="9" fill="#ecfeff"/>
+  <path d="M741 365v-46c0-34-27-61-61-61h-48" fill="none" stroke="#f5d0fe" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="741" cy="389" r="9" fill="#f5d0fe"/>
+
+  <g fill="#101b45">
+    <rect x="317" y="390" width="142" height="78" rx="39"/>
+    <rect x="565" y="390" width="142" height="78" rx="39"/>
+  </g>
+  <g fill="#cffafe">
+    <circle cx="389" cy="427" r="18"/>
+    <circle cx="637" cy="427" r="18"/>
+  </g>
+  <g fill="#ffffff" opacity=".55">
+    <circle cx="395" cy="421" r="6"/>
+    <circle cx="643" cy="421" r="6"/>
+  </g>
+
+  <path d="M320 590c31 105 105 164 193 164s162-59 193-164" fill="none" stroke="#101b45" stroke-width="76" stroke-linecap="round"/>
+  <path d="M332 589c29 82 95 126 181 126s152-44 181-126" fill="none" stroke="url(#smile)" stroke-width="30" stroke-linecap="round"/>
+
+  <g fill="#ecfeff">
+    <circle cx="224" cy="511" r="12"/>
+    <circle cx="794" cy="511" r="12"/>
+  </g>
+  <g stroke="#ecfeff" stroke-width="8" stroke-linecap="round" opacity=".84">
+    <path d="M224 511h-58v-54"/>
+    <path d="M794 511h58v54"/>
+  </g>
+  <path d="M312 220c58-45 127-68 200-68" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="760" cy="704" r="18" fill="#fef08a"/>
+  <circle cx="760" cy="704" r="38" fill="none" stroke="#fef08a" stroke-opacity=".35" stroke-width="6"/>
+</svg>
